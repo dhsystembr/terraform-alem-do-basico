@@ -20,11 +20,30 @@ variable "environment" {
 }
 
 resource "aws_instance" "web" {
+  count = "${var.environment == "dev" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
 
   tags = {
-    Name = "HelloWorld"
+    Name = "HelloWorld UAT"
+    Env  = var.environment
+  }
+
+  count = "${var.environment == "hom" ? 1 : 0}"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld Homol"
+    Env  = var.environment
+  }
+
+  count = "${var.environment == "prod" ? 1 : 0}"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld PROD"
     Env  = var.environment
   }
 }
