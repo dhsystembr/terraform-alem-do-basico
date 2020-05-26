@@ -1,6 +1,6 @@
 provider "aws" {
-  region = "us-east-2"
-  profile = "awsouza"
+  region = "us-east-1"
+  profile = "default"
 }
 
 resource "aws_security_group" "com-dynamic-block" {
@@ -25,10 +25,10 @@ resource "aws_security_group" "com-dynamic-block" {
 
 terraform {
   backend "s3" {
-    bucket = "ficaemcasaconf-tfstate"
+    bucket = "dhsystem-tfstate"
     key    = "sg/terraform.state"
-    region = "us-east-2"
-    profile = "awsouza"
+    region = "us-east-1"
+    profile = "default"
   }
 }
 
