@@ -1,6 +1,6 @@
 #####Criar security Group#####
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
   profile = "default"
 }
 
@@ -28,7 +28,7 @@ terraform {
   backend "s3" {
     bucket = "dhsystem-tfstate"
     key    = "sg/terraform.state"
-    region = "us-east-1"
+    region = "us-east-2"
     profile = "default"
   }
 }

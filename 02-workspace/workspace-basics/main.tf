@@ -2,10 +2,10 @@ variable ambiente {
   type = map(string)
   description = "Mapa que define em qual ambiente estamos"
   default = {
-    default = "Esse é o ambiente padrão"
-    dev = "Esse é o ambiente de desenvolvimento"
-    hom = "Esse é o ambiente de homologação"
-    prod = "Esse é o ambiente de produção"
+    default = "Esse e o ambiente padrao"
+    dev = "Esse e o ambiente de desenvolvimento"
+    hom = "Esse e o ambiente de homologacao"
+    prod = "Esse e o ambiente de producao"
   }
 }
 
