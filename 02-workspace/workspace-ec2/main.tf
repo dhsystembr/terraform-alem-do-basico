@@ -49,7 +49,7 @@ data "terraform_remote_state" "dev-default-sg" {
   backend = "s3"
 
   config = {
-    bucket = "dhsystem-tfstate"
+    bucket = "dhsystem2-tfstate"
     key    = "sg/terraform.state"
     region = "us-east-2"
     profile = "default"

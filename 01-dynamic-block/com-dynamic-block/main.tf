@@ -26,7 +26,7 @@ resource "aws_security_group" "com-dynamic-block" {
 
 terraform {
   backend "s3" {
-    bucket = "dhsystem-tfstate"
+    bucket = "dhsystem2-tfstate"
     key    = "sg/terraform.state"
     region = "us-east-2"
     profile = "default"
