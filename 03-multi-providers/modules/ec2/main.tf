@@ -20,7 +20,7 @@ variable "environment" {
 }
 
 resource "aws_security_group" "sgdev" {
-  count = "${var.environment == "dev" ? 1 : 0}"
+  aws_security_group.sgdev.id = 1
   name = "sgdev"
   description = "Allow all inbound traffic"
   ingress {
@@ -43,12 +43,10 @@ resource "aws_security_group" "sgdev" {
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
-
-  aws_security_group.sgdev.id = "1"
 }
 
 resource "aws_security_group" "sghom" {
-  count = "${var.environment == "hom" ? 1 : 0}"
+  aws_security_group.sgdev.id = 2
   name = "sghom"
   description = "Allow all inbound traffic"
   ingress {
@@ -71,12 +69,10 @@ resource "aws_security_group" "sghom" {
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
-
-  aws_security_group.sgdev.id = "2"
 }
 
 resource "aws_security_group" "sgprod" {
-  count = "${var.environment == "prod" ? 1 : 0}"
+  aws_security_group.sgdev.id = 3
   name = "sgprod"
   description = "Allow all inbound traffic"
   ingress {
@@ -99,7 +95,6 @@ resource "aws_security_group" "sgprod" {
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
-  aws_security_group.sgdev.id = "2"
 }
 
 resource "aws_instance" "web" {
