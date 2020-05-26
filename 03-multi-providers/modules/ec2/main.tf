@@ -25,25 +25,29 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "HelloWorld UAT"
+    Name = "HelloWorld DEV"
     Env  = var.environment
   }
+}
 
+resource "aws_instance" "web2" {
   count = "${var.environment == "hom" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
 
   tags = {
-    Name = "HelloWorld Homol"
+    Name = "HelloWorld Hom"
     Env  = var.environment
   }
+}
 
+resource "aws_instance" "web3" {
   count = "${var.environment == "prod" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
 
   tags = {
-    Name = "HelloWorld PROD"
+    Name = "HelloWorld Prod"
     Env  = var.environment
   }
 }
