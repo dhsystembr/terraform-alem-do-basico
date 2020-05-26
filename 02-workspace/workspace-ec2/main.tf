@@ -51,7 +51,7 @@ data "terraform_remote_state" "dev-default-sg" {
   config = {
     bucket = "dhsystem-tfstate"
     key    = "sg/terraform.state"
-    region = "us-east-1"
+    region = "us-east-2"
     profile = "default"
   }
 }
