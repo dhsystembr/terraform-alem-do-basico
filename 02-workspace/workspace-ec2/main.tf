@@ -1,6 +1,6 @@
 provider "aws" {
   region = local.region
-  profile = "awsouza"
+  profile = "default"
 }
 
 resource "aws_instance" "web" {
@@ -40,7 +40,7 @@ variable ambiente_regiao {
     default = "us-east-2"
     dev = "us-east-2"
     hom = "us-east-1"
-    prod = "sa-east-1"
+    prod = "us-west-1"
   }
 }
 
@@ -49,9 +49,9 @@ data "terraform_remote_state" "dev-default-sg" {
   backend = "s3"
 
   config = {
-    bucket = "ficaemcasaconf-tfstate"
+    bucket = "dhsystem-tfstate"
     key    = "sg/terraform.state"
-    region = "us-east-2"
-    profile = "awsouza"
+    region = "us-east-1"
+    profile = "default"
   }
 }
