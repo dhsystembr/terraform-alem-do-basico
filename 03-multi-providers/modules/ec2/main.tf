@@ -23,6 +23,7 @@ resource "aws_instance" "web" {
   count = "${var.environment == "dev" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
+  security_groups = ["${aws_security_group.terraform_private_sgdev.name}"]
   tags = {
     Name = "HelloWorld DEV"
     Env  = var.environment
@@ -46,5 +47,44 @@ resource "aws_instance" "web3" {
   tags = {
     Name = "HelloWorld Prod"
     Env  = var.environment
+  }
+}
+
+
+resource "aws_security_group" "terraform_private_sgdev" {
+  description = "Allow limited inbound external traffic"
+  vpc_id      = "${aws_vpc.terraform-vpc.id}"
+  name        = "terraform_private_sgdev"
+
+  ingress {
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 22
+    to_port     = 22
+  }
+
+  ingress {
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 8080
+    to_port     = 8080
+  }
+
+  ingress {
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 443
+    to_port     = 443
+  }
+
+  egress {
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+  }
+
+  tags = {
+    Name = "ec2-private-sgdev"
   }
 }
