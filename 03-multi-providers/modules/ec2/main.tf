@@ -43,6 +43,8 @@ resource "aws_security_group" "sgdev" {
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
+
+  aws_security_group.sgdev.id = "1"
 }
 
 resource "aws_security_group" "sghom" {
@@ -69,6 +71,8 @@ resource "aws_security_group" "sghom" {
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
+
+  aws_security_group.sgdev.id = "2"
 }
 
 resource "aws_security_group" "sgprod" {
@@ -95,13 +99,14 @@ resource "aws_security_group" "sgprod" {
       protocol = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
+  aws_security_group.sgdev.id = "2"
 }
 
 resource "aws_instance" "web" {
   count = "${var.environment == "dev" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids =  [ "${aws_security_group.sgdev}" ]
+  vpc_security_group_ids =  [ "${aws_security_group.sgdev.id}" ]
   tags = {
     Name = "HelloWorld DEV"
     Env  = var.environment
@@ -112,7 +117,7 @@ resource "aws_instance" "web2" {
   count = "${var.environment == "hom" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids =  [ "${aws_security_group.sghom}" ]
+  vpc_security_group_ids =  [ "${aws_security_group.sghom.id}" ]
   tags = {
     Name = "HelloWorld Hom"
     Env  = var.environment
@@ -123,7 +128,7 @@ resource "aws_instance" "web3" {
   count = "${var.environment == "prod" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids =  [ "${aws_security_group.sgprod}" ]
+  vpc_security_group_ids =  [ "${aws_security_group.sgprod.id}" ]
   tags = {
     Name = "HelloWorld Prod"
     Env  = var.environment
