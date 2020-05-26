@@ -23,7 +23,7 @@ resource "aws_instance" "web" {
   count = "${var.environment == "dev" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids =  [ "${aws_security_group.sgdev.id}" ]
+  #vpc_security_group_ids =  [ "${aws_security_group.sgdev.id}" ]
   tags = {
     Name = "HelloWorld DEV"
     Env  = var.environment
@@ -34,7 +34,7 @@ resource "aws_instance" "web2" {
   count = "${var.environment == "hom" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids =  [ "${aws_security_group.sghom.id}" ]
+  #vpc_security_group_ids =  [ "${aws_security_group.sghom.id}" ]
   tags = {
     Name = "HelloWorld Hom"
     Env  = var.environment
@@ -45,7 +45,7 @@ resource "aws_instance" "web3" {
   count = "${var.environment == "prod" ? 1 : 0}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  vpc_security_group_ids =  [ "${aws_security_group.sgprod.id}" ]
+  #vpc_security_group_ids =  [ "${aws_security_group.sgprod.id}" ]
   tags = {
     Name = "HelloWorld Prod"
     Env  = var.environment
