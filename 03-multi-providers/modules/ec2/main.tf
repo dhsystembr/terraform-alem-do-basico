@@ -46,7 +46,7 @@ resource "aws_security_group" "sgdev" {
 }
 
 resource "aws_security_group" "sghom" {
-  aws_security_group.sgdev.id = 2
+  aws_security_group.sgprod.id = 2
   name = "sghom"
   description = "Allow all inbound traffic"
   ingress {
@@ -72,7 +72,7 @@ resource "aws_security_group" "sghom" {
 }
 
 resource "aws_security_group" "sgprod" {
-  aws_security_group.sgdev.id = 3
+  aws_security_group.sgprod.id = 3
   name = "sgprod"
   description = "Allow all inbound traffic"
   ingress {
