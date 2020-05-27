@@ -53,35 +53,39 @@ resource "aws_instance" "web3" {
 
 resource "aws_security_group" "terraform_private_sgdev" {
   description = "Allow limited inbound external traffic"
-  vpc_id      = "${aws_vpc.terraform-vpc.id}"
+  vpc_id      = "default"
   name        = "terraform_private_sgdev"
 
-  ingress {
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 22
-    to_port     = 22
+  dynamic "ingress" {
+    for_each = var.default_ingress-dev
+    content {
+      description = ingress.value["description"]
+      from_port   = ingress.key
+      to_port     = ingress.key
+      protocol    = "tcp"
+      cidr_blocks = ingress.value["cidr_blocks"]
+    }
   }
 
-  ingress {
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 8080
-    to_port     = 8080
+  tags = {
+    Name = "ec2-private-sgdev"
   }
+}
 
-  ingress {
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 443
-    to_port     = 443
-  }
+resource "aws_security_group" "terraform_private_sghom" {
+  description = "Allow limited inbound external traffic"
+  vpc_id      = "default"
+  name        = "terraform_private_sghmo"
 
-  egress {
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    to_port     = 0
+  dynamic "ingress" {
+    for_each = var.default_ingress-hom
+    content {
+      description = ingress.value["description"]
+      from_port   = ingress.key
+      to_port     = ingress.key
+      protocol    = "tcp"
+      cidr_blocks = ingress.value["cidr_blocks"]
+    }
   }
 
   tags = {
