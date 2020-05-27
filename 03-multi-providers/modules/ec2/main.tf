@@ -57,7 +57,7 @@ resource "aws_security_group" "terraform_private_sgdev" {
   name        = "terraform_private_sgdev"
 
   dynamic "ingress" {
-    for_each = "${default_ingress-dev}"
+    for_each = var.default_ingress-dev
     content {
       description = ingress.value["description"]
       from_port   = ingress.key
