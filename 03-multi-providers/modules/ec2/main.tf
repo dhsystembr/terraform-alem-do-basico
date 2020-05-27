@@ -53,7 +53,6 @@ resource "aws_instance" "web3" {
 
 resource "aws_security_group" "terraform_private_sgdev" {
   description = "Allow limited inbound external traffic"
-  vpc_id      = "default"
   name        = "terraform_private_sgdev"
 
   dynamic "ingress" {
