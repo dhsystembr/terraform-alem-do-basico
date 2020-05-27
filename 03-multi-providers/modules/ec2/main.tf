@@ -71,24 +71,3 @@ resource "aws_security_group" "terraform_private_sgdev" {
     Name = "ec2-private-sgdev"
   }
 }
-
-resource "aws_security_group" "terraform_private_sghom" {
-  description = "Allow limited inbound external traffic"
-  vpc_id      = "default"
-  name        = "terraform_private_sghmo"
-
-  dynamic "ingress" {
-    for_each = var.default_ingress-hom
-    content {
-      description = ingress.value["description"]
-      from_port   = ingress.key
-      to_port     = ingress.key
-      protocol    = "tcp"
-      cidr_blocks = ingress.value["cidr_blocks"]
-    }
-  }
-
-  tags = {
-    Name = "ec2-private-sgdev"
-  }
-}
