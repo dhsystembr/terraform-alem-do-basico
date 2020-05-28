@@ -111,28 +111,16 @@ resource "aws_security_group" "terraform_private_sgprod" {
 resource "aws_vpc" "default" {
   cidr_block = "${var.vpc_cidr}"
   enable_dns_hostnames = true
-
-  tags {
-    Name = "test-vpc"
-  }
 }
 
 # Define the public subnet
 resource "aws_subnet" "public-subnet" {
   vpc_id = "${aws_vpc.default.id}"
   cidr_block = "${var.public_subnet_cidr}"
-
-  tags {
-    Name = "Web Public Subnet"
-  }
 }
 
 # Define the private subnet
 resource "aws_subnet" "private-subnet" {
   vpc_id = "${aws_vpc.default.id}"
   cidr_block = "${var.private_subnet_cidr}"
-
-  tags {
-    Name = "Database Private Subnet"
-  }
 }
