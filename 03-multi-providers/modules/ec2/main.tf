@@ -1,16 +1,13 @@
 data "aws_ami" "ubuntu" {
   most_recent = true
-
   filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
   }
-
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
   owners = ["099720109477"] # Canonical
 }
 
@@ -52,7 +49,6 @@ resource "aws_instance" "web3" {
   }
 }
 
-
 resource "aws_security_group" "terraform_private_sgdev" {
   description = "Allow limited inbound external traffic"
   name        = "terraform_private_sgdev"
@@ -67,7 +63,6 @@ resource "aws_security_group" "terraform_private_sgdev" {
       cidr_blocks = ingress.value["cidr_blocks"]
     }
   }
-
   tags = {
     Name = "ec2-private-sgdev"
   }
@@ -87,7 +82,6 @@ resource "aws_security_group" "terraform_private_sghom" {
       cidr_blocks = ingress.value["cidr_blocks"]
     }
   }
-
   tags = {
     Name = "ec2-private-sghom"
   }
@@ -107,7 +101,6 @@ resource "aws_security_group" "terraform_private_sgprod" {
       cidr_blocks = ingress.value["cidr_blocks"]
     }
   }
-
   tags = {
     Name = "ec2-private-sgprod"
   }
